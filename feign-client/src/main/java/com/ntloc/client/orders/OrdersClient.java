@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "orders", url = "${client.orders.url}", path = "/orders")
+@FeignClient(name = "orders", path = "/orders")
 public interface OrdersClient {
 
     @PostMapping(path = "/api/v1/orders")
