@@ -1,0 +1,56 @@
+#Server
+server:
+  port: 9090
+#Management
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+#Spring
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: customer
+          uri: lb://CUSTOMER
+          predicates:
+            - Path=/customer/**
+        - id: product
+          uri: lb://PRODUCT
+          predicates:
+            - Path=/product/**
+        - id: orders
+          uri: lb://ORDERS
+          predicates:
+            - Path=/orders/**
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak-marketx-client:
+            provider: key-cloak-provider
+            client-id: keycloak-marketx-client
+            client-secret: 0SeI1nUyD7kABFzuLR93NFE3pLQsbt4s
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://localhost:9090/login/oauth2/code/keycloak-marketx-client"
+            scope: openid
+        provider:
+          key-cloak-provider:
+            issuer-uri: http://localhost:8080/auth/realms/marketx
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/auth/realms/marketx
+          jwk-set-uri: http://localhost:8080/auth/realms/marketx/protocol/openid-connect/certs
+#Eureka-Client
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true

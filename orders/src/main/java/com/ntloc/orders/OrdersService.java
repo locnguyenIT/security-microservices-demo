@@ -1,0 +1,48 @@
+package com.ntloc.orders;
+
+import com.ntloc.client.orders.OrdersRequest;
+import com.ntloc.client.product.ProductClient;
+import com.ntloc.client.product.ProductResponse;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static com.ntloc.orders.OrdersConstant.ORDERS_NOT_FOUND;
+
+@AllArgsConstructor
+@Service
+public class OrdersService {
+
+    private final OrdersRepository ordersRepository;
+    private final OrdersMapper ordersMapper;
+    private final ProductClient productClient;
+
+    public List<OrdersDTO> getAllOrders() {
+        List<OrdersEntity> allOrders = ordersRepository.findAll();
+        return ordersMapper.toListDTO(allOrders);
+    }
+
+    public OrdersDTO getOrders(Long id) {
+        OrdersEntity orders = ordersRepository.findById(id).orElseThrow(() ->
+                new IllegalStateException(ORDERS_NOT_FOUND));
+        return ordersMapper.toDTO(orders);
+    }
+
+
+    public OrdersDTO order(OrdersRequest ordersRequest) {
+
+        ProductResponse product = productClient.getProduct(ordersRequest.getProductId());
+
+        //Todo: Handle orders process
+        OrdersEntity orders = ordersRepository.save(OrdersEntity.builder()
+                .customerId(ordersRequest.getCustomerId())
+                .productId(ordersRequest.getProductId())
+                .createAt(LocalDateTime.now()).build());
+
+
+        return ordersMapper.toDTO(orders);
+
+    }
+}
