@@ -43,10 +43,6 @@ spring:
         provider:
           key-cloak-provider:
             issuer-uri: http://localhost:8080/auth/realms/marketx
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/auth/realms/marketx
-          jwk-set-uri: http://localhost:8080/auth/realms/marketx/protocol/openid-connect/certs
 #Eureka-Client
 eureka:
   client:
