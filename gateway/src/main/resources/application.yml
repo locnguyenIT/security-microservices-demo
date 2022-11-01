@@ -16,6 +16,8 @@ spring:
     name: gateway
   cloud:
     gateway:
+      default-filters:
+        - TokenRelay
       routes:
         - id: customer
           uri: lb://CUSTOMER
@@ -36,7 +38,7 @@ spring:
           keycloak-marketx-client:
             provider: key-cloak-provider
             client-id: keycloak-marketx-client
-            client-secret: 0SeI1nUyD7kABFzuLR93NFE3pLQsbt4s
+            client-secret: 1zsoXkiVGAWvtxPRHEAuSaW3mhOertmJ
             authorization-grant-type: authorization_code
             redirect-uri: "http://localhost:9090/login/oauth2/code/keycloak-marketx-client"
             scope: openid

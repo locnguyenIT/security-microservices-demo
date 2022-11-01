@@ -10,22 +10,35 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: keycloak
+    networks:
+      - mysql
     restart: unless-stopped
   keycloak:
-    image: quay.io/keycloak/keycloak:legacy
+    image: quay.io/keycloak/keycloak:19.0.3
     environment:
-      DB_VENDOR: MYSQL
-      DB_ADDR: mysql
-      DB_DATABASE: keycloak
-      DB_USER: root
-      DB_PASSWORD: password
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
+      KC_DB: mysql
+      KC_DB_SCHEMA: keycloak
+      KC_DB_URL: jdbc:mysql://mysql:3306/keycloak
+      KC_DB_USERNAME: root
+      KC_DB_PASSWORD: password
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
       # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the MySQL JDBC driver documentation in order to use it.
       #JDBC_PARAMS: "connectTimeout=30000"
     ports:
       - "8080:8080"
+    volumes:
+      - keycloak_data:/opt/keycloak/data/
+    command:
+      - "start-dev"
+    networks:
+      - mysql
     depends_on:
       - mysql
+    restart: always
 volumes:
   mysql_data:
+  keycloak_data:
+networks:
+  mysql:
+    driver: bridge
