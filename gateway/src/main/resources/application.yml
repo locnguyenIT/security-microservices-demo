@@ -23,10 +23,20 @@ spring:
           uri: lb://CUSTOMER
           predicates:
             - Path=/customer/**
+          filters:
+          - name: CircuitBreaker
+            args:
+              name: customer
+              fallbackUri: forward:/fallback/customer
         - id: product
           uri: lb://PRODUCT
           predicates:
             - Path=/product/**
+          filters:
+          - name: CircuitBreaker
+            args:
+              name: product
+              fallbackUri: forward:/fallback/product
         - id: orders
           uri: lb://ORDERS
           predicates:
@@ -38,13 +48,13 @@ spring:
           keycloak-marketx-client:
             provider: key-cloak-provider
             client-id: keycloak-marketx-client
-            client-secret: 1zsoXkiVGAWvtxPRHEAuSaW3mhOertmJ
+            client-secret: ZWC6PE905oYqbTa8ajhNeWM2zXAaURyl
             authorization-grant-type: authorization_code
             redirect-uri: "http://localhost:9090/login/oauth2/code/keycloak-marketx-client"
             scope: openid
         provider:
           key-cloak-provider:
-            issuer-uri: http://localhost:8080/auth/realms/marketx
+            issuer-uri: http://localhost:8080/realms/marketx
 #Eureka-Client
 eureka:
   client:

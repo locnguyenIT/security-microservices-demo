@@ -33,7 +33,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/auth/realms/marketx
+          issuer-uri: http://localhost:8080/realms/marketx
 #Eureka-Client
 eureka:
   client:
