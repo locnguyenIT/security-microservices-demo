@@ -1,26 +1,20 @@
 package com.ntloc.customer.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.web.SecurityFilterChain;
-
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        return http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/actuator/**").permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt())
-                .build();
-    }
+//    @Bean
+//    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+//        return http
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/actuator/**").permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .oauth2ResourceServer(oauth2 -> oauth2.jwt())
+//                .build();
+//    }
 
 }

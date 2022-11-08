@@ -16,8 +16,8 @@ spring:
     name: gateway
   cloud:
     gateway:
-      default-filters:
-        - TokenRelay
+#      default-filters:
+#        - TokenRelay
       routes:
         - id: customer
           uri: lb://CUSTOMER
@@ -41,20 +41,25 @@ spring:
           uri: lb://ORDERS
           predicates:
             - Path=/orders/**
-  security:
-    oauth2:
-      client:
-        registration:
-          keycloak-marketx-client:
-            provider: key-cloak-provider
-            client-id: keycloak-marketx-client
-            client-secret: ZWC6PE905oYqbTa8ajhNeWM2zXAaURyl
-            authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:9090/login/oauth2/code/keycloak-marketx-client"
-            scope: openid
-        provider:
-          key-cloak-provider:
-            issuer-uri: http://localhost:8080/realms/marketx
+          filters:
+          - name: CircuitBreaker
+            args:
+              name: orders
+              fallbackUri: forward:/fallback/orders
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          keycloak-marketx-client:
+#            provider: key-cloak-provider
+#            client-id: keycloak-marketx-client
+#            client-secret: ZWC6PE905oYqbTa8ajhNeWM2zXAaURyl
+#            authorization-grant-type: authorization_code
+#            redirect-uri: "http://localhost:9090/login/oauth2/code/keycloak-marketx-client"
+#            scope: openid
+#        provider:
+#          key-cloak-provider:
+#            issuer-uri: http://localhost:8080/realms/marketx
 #Eureka-Client
 eureka:
   client:
