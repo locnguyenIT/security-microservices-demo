@@ -1,7 +1,5 @@
 package com.ntloc.customer;
 
-import com.ntloc.client.orders.OrdersRequest;
-import com.ntloc.client.orders.OrdersResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +18,12 @@ public class CustomerController {
 
     @GetMapping
     public List<CustomerDTO> getAllCustomer() {
-        return customerService.getAllCustomer();
+        throw new RuntimeException("abc");
+        //return customerService.getAllCustomer();
     }
 
     @PostMapping(path = "/orders")
-    public OrdersResponse orders(@RequestBody OrdersRequest ordersRequest) {
+    public String orders(@RequestBody OrdersRequest ordersRequest) {
         log.info("Customer orders {}", ordersRequest);
         return customerService.orders(ordersRequest);
     }

@@ -1,8 +1,5 @@
 package com.ntloc.orders;
 
-import com.ntloc.client.orders.OrdersRequest;
-import com.ntloc.client.product.ProductClient;
-import com.ntloc.client.product.ProductResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

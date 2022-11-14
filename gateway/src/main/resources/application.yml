@@ -1,8 +1,13 @@
 #Server
 server:
   port: 9090
+  error:
+    include-message: always
 #Management
 management:
+#  health:
+#    circuitbreakers:
+#      enable: true
   endpoints:
     web:
       exposure:
@@ -67,3 +72,4 @@ eureka:
       defaultZone: http://localhost:8761/eureka
     fetch-registry: true
     register-with-eureka: true
+

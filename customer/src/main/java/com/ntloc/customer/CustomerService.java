@@ -1,9 +1,6 @@
 package com.ntloc.customer;
 
 
-import com.ntloc.client.orders.OrdersClient;
-import com.ntloc.client.orders.OrdersRequest;
-import com.ntloc.client.orders.OrdersResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,11 +24,11 @@ public class CustomerService {
 
     }
 
-    public OrdersResponse orders(OrdersRequest ordersRequest) {
+    public String orders(OrdersRequest ordersRequest) {
         CustomerEntity customer = customerRepository.findById(ordersRequest.getCustomerId()).orElseThrow(() ->
                 new IllegalStateException(CUSTOMER_NOT_FOUND));
 
-        OrdersResponse order = ordersClient.order(ordersRequest);
+        String order = ordersClient.order(ordersRequest);
 
         return order;
     }
