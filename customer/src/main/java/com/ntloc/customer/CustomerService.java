@@ -29,7 +29,7 @@ public class CustomerService {
                 new IllegalStateException(CUSTOMER_NOT_FOUND));
 
         String order = ordersClient.order(ordersRequest);
-
+        //System.out.println(order+" abc");
         return order;
     }
 

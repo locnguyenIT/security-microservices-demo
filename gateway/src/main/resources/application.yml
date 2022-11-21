@@ -7,7 +7,7 @@ server:
 management:
 #  health:
 #    circuitbreakers:
-#      enable: true
+#      enabled: true
   endpoints:
     web:
       exposure:
@@ -28,29 +28,29 @@ spring:
           uri: lb://CUSTOMER
           predicates:
             - Path=/customer/**
-          filters:
-          - name: CircuitBreaker
-            args:
-              name: customer
-              fallbackUri: forward:/fallback/customer
+#          filters:
+#          - name: CircuitBreaker
+#            args:
+#              name: customer
+#              fallbackUri: forward:/fallback/customer
         - id: product
           uri: lb://PRODUCT
           predicates:
             - Path=/product/**
-          filters:
-          - name: CircuitBreaker
-            args:
-              name: product
-              fallbackUri: forward:/fallback/product
+#          filters:
+#          - name: CircuitBreaker
+#            args:
+#              name: product
+#              fallbackUri: forward:/fallback/product
         - id: orders
           uri: lb://ORDERS
           predicates:
             - Path=/orders/**
-          filters:
-          - name: CircuitBreaker
-            args:
-              name: orders
-              fallbackUri: forward:/fallback/orders
+#          filters:
+#          - name: CircuitBreaker
+#            args:
+#              name: orders
+#              fallbackUri: forward:/fallback/orders
 #  security:
 #    oauth2:
 #      client:
@@ -73,3 +73,16 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
 
+#resilience4j:
+#  circuitbreaker:
+#    instances:
+#      customer:
+#        slidingWindowSize: 10                    #unit request
+#        permittedNumberOfCallsInHalfOpenState: 5  #unit request
+#        failureRateThreshold: 50                 #percent
+#        waitDurationInOpenState: 10000           #10 seconds
+#        registerHealthIndicator: true
+#  timelimiter:
+#    instances:
+#      customer:
+#        timeoutDuration: 5s

@@ -1,5 +1,6 @@
 package com.ntloc.product;
 
+import com.ntloc.product.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class ProductService {
 
     public ProductDTO getProduct(Long id) {
         ProductEntity product = productRepository.findById(id).orElseThrow(() ->
-                new IllegalStateException(PRODUCT_NOT_FOUND));
+                new NotFoundException(PRODUCT_NOT_FOUND));
         return productMapper.toDTO(product);
     }
 }

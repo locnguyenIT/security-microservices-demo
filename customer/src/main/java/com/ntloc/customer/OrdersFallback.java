@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class OrdersFallback implements OrdersClient {
-    @Override
-    public String order(OrdersRequest ordersRequest) {
-        log.info("Orders Fallback");
-        return "Order service unavailable !";
-    }
+public class OrdersFallback  {
+//    @Override
+//    public String order(OrdersRequest ordersRequest) {
+//        log.info("Orders Fallback");
+//        return "Order service unavailable !";
+//    }
 }

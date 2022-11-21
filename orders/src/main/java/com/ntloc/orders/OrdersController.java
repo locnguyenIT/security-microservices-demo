@@ -28,10 +28,10 @@ public class OrdersController {
     }
 
     @PostMapping
-    public OrdersDTO order(@RequestBody OrdersRequest ordersRequest) {
-        throw new RuntimeException("orders abc");
-        //log.info("Customer orders {}", ordersRequest);
-        //return ordersService.order(ordersRequest);
+    public String order(@RequestBody OrdersRequest ordersRequest) {
+//        throw new RuntimeException("orders abc");
+        log.info("Customer orders {}", ordersRequest);
+        return ordersService.order(ordersRequest);
     }
 
 }
