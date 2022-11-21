@@ -1,10 +1,11 @@
 package com.ntloc.customer;
 
+import com.ntloc.customer.config.FeignClientConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "orders", path = "/orders")
+@FeignClient(name = "orders", path = "/orders", configuration = FeignClientConfiguration.class)
 public interface OrdersClient {
 
     @PostMapping(path = "/api/v1/orders")
