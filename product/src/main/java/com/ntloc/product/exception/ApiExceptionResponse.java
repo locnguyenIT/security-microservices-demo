@@ -1,7 +1,6 @@
 package com.ntloc.product.exception;
 
 import lombok.*;
-import org.springframework.http.HttpStatus;
 
 
 import java.time.ZonedDateTime;
@@ -11,7 +10,7 @@ import java.time.ZonedDateTime;
 @Builder
 @Getter
 @Setter
-public class ProductException {
+public class ApiExceptionResponse {
 
     private ZonedDateTime timestamp;
     private int status;

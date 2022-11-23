@@ -10,11 +10,15 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @ToString
-public class OrdersException extends RuntimeException{
+public class ApiExceptionResponse extends RuntimeException{
 
     private ZonedDateTime timestamp;
     private int status;
     private String message;
     private String path;
     private String service;
+
+    public ApiExceptionResponse(String message) {
+        super(message);
+    }
 }

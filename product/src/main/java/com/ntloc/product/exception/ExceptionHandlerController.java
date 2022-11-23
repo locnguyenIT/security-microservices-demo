@@ -10,16 +10,16 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class ExceptionHandlerController {
 
     @ExceptionHandler(value = NotFoundException.class)
-    public ResponseEntity<ProductException> handleProductNotFoundException(NotFoundException e, HttpServletRequest request) {
-        ProductException productException = ProductException.builder()
+    public ResponseEntity<ApiExceptionResponse> handleProductNotFoundException(NotFoundException e, HttpServletRequest request) {
+        ApiExceptionResponse apiExceptionResponse = ApiExceptionResponse.builder()
                 .timestamp(ZonedDateTime.now(ZoneId.of("Z")))
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message(e.getMessage())
                 .path(request.getRequestURI())
                 .service("Product").build();
-        return new ResponseEntity<>(productException,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(apiExceptionResponse,HttpStatus.BAD_REQUEST);
     }
 }

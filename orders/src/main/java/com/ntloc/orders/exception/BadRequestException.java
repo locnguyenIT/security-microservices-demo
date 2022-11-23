@@ -1,6 +1,8 @@
 package com.ntloc.orders.exception;
 
-public class BadRequestException extends RuntimeException{
+import java.time.ZonedDateTime;
+
+public class BadRequestException extends ApiExceptionResponse{
 
     public BadRequestException(String message) {
         super(message);
