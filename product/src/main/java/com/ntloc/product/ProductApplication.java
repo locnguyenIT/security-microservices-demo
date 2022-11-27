@@ -13,7 +13,12 @@ import org.springframework.context.annotation.PropertySources;
 )
 @EnableEurekaClient
 //ScanBasePackages is scan package to fetch all class from that package
-@SpringBootApplication
+@SpringBootApplication(
+        scanBasePackages = {
+                "com.ntloc.product",
+                "com.ntloc.exception"
+        }
+)
 //PropertySources to use properties file to run different environments (local, docker, ...)
 //@PropertySources({
 //        @PropertySource("classpath:client-${spring.profiles.active}.properties")

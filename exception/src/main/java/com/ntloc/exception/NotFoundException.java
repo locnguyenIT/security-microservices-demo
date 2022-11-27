@@ -1,4 +1,4 @@
-package com.ntloc.product.exception;
+package com.ntloc.exception;
 
 public class NotFoundException extends RuntimeException {
 

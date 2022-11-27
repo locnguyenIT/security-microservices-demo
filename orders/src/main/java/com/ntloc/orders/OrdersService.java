@@ -1,5 +1,6 @@
 package com.ntloc.orders;
 
+import com.ntloc.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class OrdersService {
 
     public OrdersDTO getOrders(Long id) {
         OrdersEntity orders = ordersRepository.findById(id).orElseThrow(() ->
-                new IllegalStateException(ORDERS_NOT_FOUND));
+                new NotFoundException(ORDERS_NOT_FOUND));
         return ordersMapper.toDTO(orders);
     }
 

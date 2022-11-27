@@ -1,4 +1,4 @@
-package com.ntloc.customer.exception;
+package com.ntloc.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -15,15 +15,12 @@ public class CustomErrorDecoder implements ErrorDecoder {
     @SneakyThrows
     @Override
     public Exception decode(String s, Response response) {
-        log.info("Response {}",response.body());
-        System.out.println(response);
         InputStream bodyIs = response.body().asInputStream();
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        CustomerException customerException = mapper.readValue(bodyIs, CustomerException.class);
-        System.out.println(customerException);
+        ServiceExceptionResponse serviceExceptionResponse = mapper.readValue(bodyIs, ServiceExceptionResponse.class);
 
-        return customerException;
+        return serviceExceptionResponse;
 //        switch (response.status()) {
 //            case 400:
 //                return new BadRequestException(customerException.getMessage());

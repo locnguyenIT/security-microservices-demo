@@ -1,6 +1,4 @@
-package com.ntloc.customer.exception;
-
-import java.time.ZonedDateTime;
+package com.ntloc.exception;
 
 public class BadRequestException extends RuntimeException{
 

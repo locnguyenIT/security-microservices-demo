@@ -16,7 +16,12 @@ import org.springframework.context.annotation.PropertySources;
 //        @PropertySource("classpath:client-${spring.profiles.active}.properties")
 //})
 @EnableEurekaClient
-@SpringBootApplication
+@SpringBootApplication(
+        scanBasePackages = {
+                "com.ntloc.customer",
+                "com.ntloc.exception"
+        }
+)
 public class CustomerApplication {
     public static void main(String[] args) {
         SpringApplication.run(CustomerApplication.class, args);

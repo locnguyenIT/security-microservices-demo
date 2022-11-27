@@ -1,6 +1,6 @@
 package com.ntloc.product;
 
-import com.ntloc.product.exception.NotFoundException;
+import com.ntloc.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
