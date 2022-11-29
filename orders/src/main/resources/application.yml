@@ -7,9 +7,9 @@ server:
 #    include-message: always
 #Management
 management:
-#  health:
-#    circuitbreakers:
-#      enabled: true
+  health:
+    circuitbreakers:
+      enabled: true
   endpoints:
     web:
       exposure:
@@ -45,19 +45,16 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
 
-#feign:
-#  circuitbreaker:
-#    enabled: true
-#resilience4j:
-#  circuitbreaker:
-#    instances:
-#      product:
-#        slidingWindowSize: 10                    #unit request
-#        permittedNumberOfCallsInHalfOpenState: 5  #unit request
-#        failureRateThreshold: 50                 #percent
-#        waitDurationInOpenState: 10000           #10 seconds
-#        registerHealthIndicator: true
-#  timelimiter:
-#    instances:
-#      product:
-#        timeoutDuration: 10s
+resilience4j:
+  circuitbreaker:
+    instances:
+      product:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED

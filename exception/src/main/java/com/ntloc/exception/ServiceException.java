@@ -1,15 +1,16 @@
 package com.ntloc.exception;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.ZonedDateTime;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @ToString
-public class ServiceExceptionResponse extends RuntimeException{
+public class ServiceException extends RuntimeException{
 
     private ZonedDateTime timestamp;
     private int status;
@@ -17,7 +18,8 @@ public class ServiceExceptionResponse extends RuntimeException{
     private String message;
     private String path;
 
-    public ServiceExceptionResponse(String message) {
+    public ServiceException(String message) {
         super(message);
     }
+
 }

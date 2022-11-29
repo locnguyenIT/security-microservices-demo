@@ -15,7 +15,6 @@ import java.time.ZonedDateTime;
 @RestControllerAdvice
 public class ExceptionHandlerController {
 
-
     @ExceptionHandler(value = NotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ApiExceptionResponse handleNotFoundException(NotFoundException e, HttpServletRequest request) {
@@ -24,7 +23,7 @@ public class ExceptionHandlerController {
                 .status(HttpStatus.NOT_FOUND.value())
                 .error(HttpStatus.NOT_FOUND.getReasonPhrase())
                 .message(e.getMessage())
-                .path(request.getRequestURI())
+                .path(request.getRequestURL().toString())
                 .build();
         log.error("Error not found: {}", apiExceptionResponse);
         return apiExceptionResponse;
@@ -38,14 +37,14 @@ public class ExceptionHandlerController {
                 .status(HttpStatus.BAD_REQUEST.value())
                 .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
                 .message(ex.getMessage())
-                .path(request.getRequestURI())
+                .path(request.getRequestURL().toString())
                 .build();
         log.error("Error bad request: {}", apiExceptionResponse);
         return apiExceptionResponse;
     }
 
-    @ExceptionHandler(value = ServiceExceptionResponse.class)
-    public ResponseEntity<ApiExceptionResponse> handleServiceException(ServiceExceptionResponse ex) {
+    @ExceptionHandler(value = ServiceException.class)
+    public ResponseEntity<ApiExceptionResponse> handleServiceException(ServiceException ex) {
         ApiExceptionResponse apiExceptionResponse = ApiExceptionResponse.builder()
                 .timestamp(ex.getTimestamp())
                 .status(ex.getStatus())
