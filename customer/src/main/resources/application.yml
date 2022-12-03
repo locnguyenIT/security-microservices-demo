@@ -48,17 +48,12 @@ eureka:
 feign:
   circuitbreaker:
     enabled: true
-
+    alphanumeric-ids:
+      enabled: true
 resilience4j:
   circuitbreaker:
     instances:
-      orders:
+      OrdersClientorder:
         registerHealthIndicator: true
-        eventConsumerBufferSize: 10
-        failureRateThreshold: 50
         minimumNumberOfCalls: 5
-        automaticTransitionFromOpenToHalfOpenEnabled: true
-        waitDurationInOpenState: 5s
-        permittedNumberOfCallsInHalfOpenState: 3
-        slidingWindowSize: 10
-        slidingWindowType: COUNT_BASED
+        failureRateThreshold: 50
