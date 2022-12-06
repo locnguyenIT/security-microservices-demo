@@ -18,8 +18,8 @@ public class CustomerController {
 
     @GetMapping
     public List<CustomerDTO> getAllCustomer() {
-        throw new RuntimeException("abc");
-        //return customerService.getAllCustomer();
+        //throw new RuntimeException("abc");
+        return customerService.getAllCustomer();
     }
 
     @PostMapping(path = "/orders")
