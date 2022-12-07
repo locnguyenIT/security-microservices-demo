@@ -15,7 +15,7 @@ public class CustomErrorDecoder implements ErrorDecoder {
     @SneakyThrows
     @Override
     public Exception decode(String s, Response response) {
-        log.error("Feign error response: {}",response.request().url());
+        log.error("Feign error response: {}", response.request().url());
         InputStream bodyIs = response.body().asInputStream();
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());

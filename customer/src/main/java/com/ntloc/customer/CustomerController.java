@@ -2,6 +2,8 @@ package com.ntloc.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +20,8 @@ public class CustomerController {
 
     @GetMapping
     public List<CustomerDTO> getAllCustomer() {
-        //throw new RuntimeException("abc");
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.info("Current username: {}", jwt.getClaims().get("preferred_username"));
         return customerService.getAllCustomer();
     }
 

@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @ToString
-public class ServiceException extends RuntimeException{
+public class ServiceException extends RuntimeException {
 
     private ZonedDateTime timestamp;
     private int status;

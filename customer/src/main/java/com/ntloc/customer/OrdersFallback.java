@@ -1,7 +1,6 @@
 package com.ntloc.customer;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.client.circuitbreaker.NoFallbackAvailableException;
 import org.springframework.stereotype.Component;
 
 @Component

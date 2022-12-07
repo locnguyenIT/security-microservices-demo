@@ -6,7 +6,6 @@ import feign.FeignException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -21,10 +20,10 @@ public interface ProductClient {
     ProductResponse getProduct(@PathVariable("id") Long productId);
 
     default ProductResponse fallback(FeignException e) {
-         throw new ServiceException(ZonedDateTime.now(ZoneId.of("Z")),
-                 HttpStatus.SERVICE_UNAVAILABLE.value(),
-                 HttpStatus.SERVICE_UNAVAILABLE.getReasonPhrase(),
-                 "Product service is unavailable",
-                 e.request().url());
+        throw new ServiceException(ZonedDateTime.now(ZoneId.of("Z")),
+                HttpStatus.SERVICE_UNAVAILABLE.value(),
+                HttpStatus.SERVICE_UNAVAILABLE.getReasonPhrase(),
+                "Product service is unavailable",
+                e.request().url());
     }
 }
