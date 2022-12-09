@@ -10,6 +10,7 @@ import lombok.ToString;
 public class CustomerDTO {
 
     private Long id;
+    private String ntId;
     private String name;
     private String email;
 }

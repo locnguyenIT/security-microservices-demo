@@ -32,11 +32,11 @@ spring:
       hibernate:
         format_sql: true
     show_sql: true
-#  security:
-#    oauth2:
-#      resourceserver:
-#        jwt:
-#          issuer-uri: http://localhost:8080/realms/marketx
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/marketx
 #Eureka-Client
 eureka:
   client:

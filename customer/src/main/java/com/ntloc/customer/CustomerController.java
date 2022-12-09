@@ -20,8 +20,6 @@ public class CustomerController {
 
     @GetMapping
     public List<CustomerDTO> getAllCustomer() {
-        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        log.info("Current username: {}", jwt.getClaims().get("preferred_username"));
         return customerService.getAllCustomer();
     }
 

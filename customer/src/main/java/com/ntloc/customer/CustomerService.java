@@ -1,6 +1,7 @@
 package com.ntloc.customer;
 
 
+import com.ntloc.customer.util.SecurityUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class CustomerService {
 
 
     public List<CustomerDTO> getAllCustomer() {
+        CustomerEntity currentCustomer = SecurityUtil.getCurrentCustomerLogin(customerRepository);
         return customerMapper.toListDTO(customerRepository.findAll());
 
     }
