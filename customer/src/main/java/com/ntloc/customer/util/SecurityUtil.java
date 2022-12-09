@@ -5,9 +5,7 @@ import com.ntloc.customer.CustomerRepository;
 import com.ntloc.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
 import static com.ntloc.customer.CustomerConstant.*;
@@ -17,12 +15,11 @@ public class SecurityUtil {
 
     public static String getCurrentUsername() {
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-//        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication();
         if (jwtAuthenticationToken == null) {
             throw new AuthenticationCredentialsNotFoundException(CREDENTIAL_NOT_FOUND);
         }
-        String preferred_username = jwtAuthenticationToken.getTokenAttributes().get(PREFERRED_USERNAME).toString();
-        return preferred_username;
+        String username = jwtAuthenticationToken.getTokenAttributes().get(PREFERRED_USERNAME).toString();
+        return username;
     }
 
     public static CustomerEntity getCurrentCustomerLogin(CustomerRepository customerRepository) {
