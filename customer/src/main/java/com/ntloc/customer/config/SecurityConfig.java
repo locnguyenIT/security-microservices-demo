@@ -26,11 +26,12 @@ public class SecurityConfig {
                 .anyRequest()
                 .authenticated()
                 .and()
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt().jwtAuthenticationConverter(jwtAuthenticationConverter()))
                 .exceptionHandling(ex ->  {
-                    ex.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint());
+                    ex.authenticationEntryPoint(new CustomOAuth2AuthenticationHandler());
                     ex.accessDeniedHandler(new CustomOAuth2AccessDeniedHandler());
                 })
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt().jwtAuthenticationConverter(jwtAuthenticationConverter()))
+
                 .build();
     }
 
