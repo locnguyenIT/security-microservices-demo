@@ -2,6 +2,7 @@ package com.ntloc.customer;
 
 
 import com.ntloc.customer.util.SecurityUtil;
+import com.ntloc.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,12 @@ public class CustomerService {
 
     }
 
+    public CustomerDTO getCustomer(Long id) {
+        CustomerDTO customerDTO = customerRepository.findById(id).map(customerMapper::toDTO).orElseThrow(() ->
+                new NotFoundException(CUSTOMER_NOT_FOUND));
+        return customerDTO;
+    }
+
     public String orders(OrdersRequest ordersRequest) {
         CustomerEntity customer = customerRepository.findById(ordersRequest.getCustomerId()).orElseThrow(() ->
                 new IllegalStateException(CUSTOMER_NOT_FOUND));
@@ -34,5 +41,6 @@ public class CustomerService {
         //System.out.println(order+" abc");
         return order;
     }
+
 
 }

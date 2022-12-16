@@ -6,6 +6,7 @@ import com.ntloc.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
 import static com.ntloc.customer.CustomerConstant.*;
@@ -15,8 +16,8 @@ public class SecurityUtil {
 
     public static String getCurrentUsername() {
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        if (jwtAuthenticationToken == null) {
-            throw new AuthenticationCredentialsNotFoundException(CREDENTIAL_NOT_FOUND);
+        if (!jwtAuthenticationToken.isAuthenticated()) {
+            throw new JwtException(AUTHENTICATION_FAILED);
         }
         String username = jwtAuthenticationToken.getTokenAttributes().get(PREFERRED_USERNAME).toString();
         return username;

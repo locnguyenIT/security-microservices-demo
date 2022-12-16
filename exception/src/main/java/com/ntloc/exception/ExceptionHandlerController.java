@@ -3,6 +3,8 @@ package com.ntloc.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -54,6 +56,19 @@ public class ExceptionHandlerController {
                 .build();
         log.error("Error service response: {}", apiExceptionResponse);
         return new ResponseEntity<>(apiExceptionResponse, HttpStatus.valueOf(ex.getStatus()));
+    }
+
+    @ExceptionHandler(value = JwtException.class)
+    public ResponseEntity<ApiExceptionResponse> handleServiceException(JwtException ex, HttpServletRequest request) {
+        ApiExceptionResponse apiExceptionResponse = ApiExceptionResponse.builder()
+                .timestamp(ZonedDateTime.now(ZoneId.of("Z")))
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .error(HttpStatus.UNAUTHORIZED.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getServletPath())
+                .build();
+        log.error("Authentication failed: {}", apiExceptionResponse);
+        return new ResponseEntity<>(apiExceptionResponse, HttpStatus.UNAUTHORIZED);
     }
 
 }

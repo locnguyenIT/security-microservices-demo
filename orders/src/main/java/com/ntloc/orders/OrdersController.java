@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static com.ntloc.orders.OrdersConstant.URI_REST_API_VERSION_ORDERS;
@@ -29,7 +30,7 @@ public class OrdersController {
 
     @PostMapping
     public String order(@RequestBody OrdersRequest ordersRequest) {
-//        throw new RuntimeException("orders abc");
+
         log.info("Customer orders {}", ordersRequest);
         return ordersService.order(ordersRequest);
     }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 //@CircuitBreaker(name = "orders", fallbackMethod = "fallback")
-@FeignClient(name = "orders", configuration = FeignClientConfiguration.class, fallback = OrdersFallback.class)
+@FeignClient(name = "orders", configuration = FeignClientConfiguration.class)
 public interface OrdersClient {
 
     @PostMapping(path = "orders/api/v1/orders")
