@@ -1,16 +1,13 @@
 package com.ntloc.customer.config;
 
 
-import com.ntloc.customer.CustomerConstant;
 import com.ntloc.exception.CustomErrorDecoder;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-import feign.auth.BasicAuthRequestInterceptor;
 import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -19,7 +16,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.ntloc.customer.CustomerConstant.*;
+import static com.ntloc.customer.CustomerConstant.AUTHORIZATION;
 
 @Slf4j
 @Configuration
@@ -39,14 +36,14 @@ public class FeignClientConfiguration implements RequestInterceptor {
         }
     }
 
-    private Map<String,String> getHeadersFromHttpServletRequest() {
-        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+    private Map<String, String> getHeadersFromHttpServletRequest() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Map<String, String> headers = new HashMap<>();
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String key = headerNames.nextElement();
             String value = request.getHeader(key);
-            headers.put(key,value);
+            headers.put(key, value);
         }
         return headers;
     }

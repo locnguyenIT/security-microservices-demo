@@ -14,19 +14,19 @@ import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomOAuth2AccessDeniedHandler implements AccessDeniedHandler  {
+public class CustomOAuth2AccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, org.springframework.security.access.AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        Map<String,Object> oauth2AccessDenied = new HashMap<>();
+        Map<String, Object> oauth2AccessDenied = new HashMap<>();
         oauth2AccessDenied.put("timestamp", ZonedDateTime.now(ZoneId.of("Z")).toString());
         oauth2AccessDenied.put("status", HttpStatus.FORBIDDEN.value());
-        oauth2AccessDenied.put("error",HttpStatus.FORBIDDEN.getReasonPhrase());
-        oauth2AccessDenied.put("message",accessDeniedException.getMessage());
+        oauth2AccessDenied.put("error", HttpStatus.FORBIDDEN.getReasonPhrase());
+        oauth2AccessDenied.put("message", accessDeniedException.getMessage() + ". " + "You don't have enough permission to do.");
         oauth2AccessDenied.put("path", request.getRequestURI());
-        new ObjectMapper().writeValue(response.getOutputStream(),oauth2AccessDenied);
+        new ObjectMapper().writeValue(response.getOutputStream(), oauth2AccessDenied);
 
 
     }

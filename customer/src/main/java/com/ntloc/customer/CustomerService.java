@@ -28,6 +28,7 @@ public class CustomerService {
     }
 
     public CustomerDTO getCustomer(Long id) {
+        CustomerEntity currentCustomer = SecurityUtil.getCurrentCustomerLogin(customerRepository);
         CustomerDTO customerDTO = customerRepository.findById(id).map(customerMapper::toDTO).orElseThrow(() ->
                 new NotFoundException(CUSTOMER_NOT_FOUND));
         return customerDTO;

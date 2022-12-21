@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
-import static com.ntloc.customer.CustomerConstant.RoleConstant.*;
+import static com.ntloc.customer.CustomerConstant.RoleConstant.HAS_ANY_AUTHORITY_ADMIN_MANAGER;
+import static com.ntloc.customer.CustomerConstant.RoleConstant.HAS_AUTHORITY_USER;
 import static com.ntloc.customer.CustomerConstant.URI_REST_API_VERSION_CUSTOMER;
 
 @AllArgsConstructor
