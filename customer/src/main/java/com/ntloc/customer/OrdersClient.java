@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface OrdersClient {
 
     @PostMapping(path = "orders/api/v1/orders")
-    String order(@RequestBody OrdersRequest ordersRequest);
+    OrdersResponse order(@RequestBody OrdersRequest ordersRequest);
 
 //    default String fallback(FeignException e) {
 //

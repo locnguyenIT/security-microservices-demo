@@ -34,11 +34,11 @@ public class CustomerService {
         return customerDTO;
     }
 
-    public String orders(OrdersRequest ordersRequest) {
+    public OrdersResponse orders(OrdersRequest ordersRequest) {
         CustomerEntity customer = customerRepository.findById(ordersRequest.getCustomerId()).orElseThrow(() ->
                 new IllegalStateException(CUSTOMER_NOT_FOUND));
 
-        String order = ordersClient.order(ordersRequest);
+        OrdersResponse order = ordersClient.order(ordersRequest);
         //System.out.println(order+" abc");
         return order;
     }

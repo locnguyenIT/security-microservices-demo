@@ -32,7 +32,7 @@ public class CustomerController {
     }
 
     @PostMapping(path = "/orders")
-    public String orders(@RequestBody OrdersRequest ordersRequest) {
+    public OrdersResponse orders(@RequestBody OrdersRequest ordersRequest) {
         log.info("Customer orders {}", ordersRequest);
         return customerService.orders(ordersRequest);
     }

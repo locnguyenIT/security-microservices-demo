@@ -29,7 +29,7 @@ public class OrdersService {
     }
 
 
-    public String order(OrdersRequest ordersRequest) {
+    public OrdersDTO order(OrdersRequest ordersRequest) {
 
         ProductResponse product = productClient.getProduct(ordersRequest.getProductId());
 
@@ -40,7 +40,7 @@ public class OrdersService {
                 .createAt(LocalDateTime.now()).build());
 
 
-        return "Orders success !";
+        return ordersMapper.toDTO(orders);
 
     }
 }
