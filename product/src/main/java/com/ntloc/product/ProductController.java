@@ -1,11 +1,9 @@
 package com.ntloc.product;
 
+import com.ntloc.client.orders.OrdersRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +26,12 @@ public class ProductController {
     public ProductDTO getProduct(@PathVariable("id") Long id) {
         log.info("ProductId {}", id);
         return productService.getProduct(id);
+    }
+
+    @PutMapping
+    public void updateQuantity(@RequestBody OrdersRequest ordersRequest) {
+        log.info("Update quantity after orders success: {}", ordersRequest);
+        productService.updateQuantity(ordersRequest);
     }
 
 }

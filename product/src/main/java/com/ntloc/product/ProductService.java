@@ -1,8 +1,10 @@
 package com.ntloc.product;
 
+import com.ntloc.client.orders.OrdersRequest;
 import com.ntloc.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,5 +26,14 @@ public class ProductService {
         ProductEntity product = productRepository.findById(id).orElseThrow(() ->
                 new NotFoundException(PRODUCT_NOT_FOUND));
         return productMapper.toDTO(product);
+    }
+
+    @Transactional
+    public void updateQuantity(OrdersRequest ordersRequest) {
+        ProductEntity product = productRepository.findById(ordersRequest.getProductId()).orElseThrow(() ->
+                new NotFoundException(PRODUCT_NOT_FOUND));
+        if (product.getQuantity() > ordersRequest.getQuantity()) {
+            product.setQuantity(product.getQuantity() - ordersRequest.getQuantity());
+        }
     }
 }

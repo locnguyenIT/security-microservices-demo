@@ -1,5 +1,7 @@
 package com.ntloc.customer;
 
+import com.ntloc.client.orders.OrdersRequest;
+import com.ntloc.client.orders.OrdersResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +21,11 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    @GetMapping(path = "/current-customer")
+    public CustomerDTO getCurrentCustomer() {
+        return customerService.getCurrentCustomer();
+    }
+
     @PreAuthorize(HAS_AUTHORITY_USER)
     @GetMapping
     public List<CustomerDTO> getAllCustomer() {
@@ -30,12 +37,5 @@ public class CustomerController {
     public CustomerDTO getAllCustomer(@PathVariable("id") Long id) {
         return customerService.getCustomer(id);
     }
-
-    @PostMapping(path = "/orders")
-    public OrdersResponse orders(@RequestBody OrdersRequest ordersRequest) {
-        log.info("Customer orders {}", ordersRequest);
-        return customerService.orders(ordersRequest);
-    }
-
 
 }

@@ -44,16 +44,3 @@ eureka:
       defaultZone: http://localhost:8761/eureka
     fetch-registry: true
     register-with-eureka: true
-
-feign:
-  circuitbreaker:
-    enabled: true
-    alphanumeric-ids:
-      enabled: true
-resilience4j:
-  circuitbreaker:
-    instances:
-      OrdersClientorder:
-        registerHealthIndicator: true
-        minimumNumberOfCalls: 5
-        failureRateThreshold: 50

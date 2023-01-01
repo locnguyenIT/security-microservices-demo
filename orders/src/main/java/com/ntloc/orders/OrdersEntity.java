@@ -20,5 +20,6 @@ public class OrdersEntity {
     private Long id;
     private Long customerId;
     private Long productId;
+    private Integer quality;
     private LocalDateTime createAt;
 }

@@ -1,4 +1,4 @@
-package com.ntloc.orders;
+package com.ntloc.client.customer;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,9 +7,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ProductResponse {
+public class CustomerResponse {
 
     private Long id;
+    private String ntId;
     private String name;
-    private Integer price;
+    private String email;
 }

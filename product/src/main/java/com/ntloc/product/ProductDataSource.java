@@ -14,9 +14,11 @@ public class ProductDataSource {
         return args -> {
             ProductEntity chalua = ProductEntity.builder()
                     .name("Cha lua")
+                    .quantity(50)
                     .price(3000).build();
             ProductEntity nemchua = ProductEntity.builder()
                     .name("Nem chua")
+                    .quantity(50)
                     .price(50000).build();
             productRepository.saveAll(List.of(chalua, nemchua));
         };

@@ -1,7 +1,8 @@
-package com.ntloc.exception;
+package com.ntloc.client.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.ntloc.exception.ServiceException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.SneakyThrows;
@@ -10,12 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.InputStream;
 
 @Slf4j
-public class CustomErrorDecoder implements ErrorDecoder {
+public class FeignErrorDecoder implements ErrorDecoder {
 
     @SneakyThrows
     @Override
     public Exception decode(String s, Response response) {
-        log.error("Feign error response: {}", response.request().url());
+        log.error("Feign client error response: {}", response.request().url());
         InputStream bodyIs = response.body().asInputStream();
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());

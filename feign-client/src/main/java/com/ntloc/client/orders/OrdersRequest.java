@@ -9,8 +9,6 @@ import lombok.ToString;
 @ToString
 public class OrdersRequest {
 
-    private Long customerId;
-    private String customerName;
-    private String customerEmail;
     private Long productId;
+    private Integer quantity;
 }

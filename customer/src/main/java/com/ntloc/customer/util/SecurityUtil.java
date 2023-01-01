@@ -13,12 +13,11 @@ import static com.ntloc.customer.CustomerConstant.PREFERRED_USERNAME;
 @Slf4j
 public class SecurityUtil {
 
-    public static CustomerEntity getCurrentCustomerLogin(CustomerRepository customerRepository) {
+    public static CustomerEntity getCurrentCustomer(CustomerRepository customerRepository) {
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         String username = jwtAuthenticationToken.getTokenAttributes().get(PREFERRED_USERNAME).toString();
         CustomerEntity customerEntity = customerRepository.findByNtIdIgnoreCase(username).orElseThrow(() ->
                 new NotFoundException(CUSTOMER_NOT_FOUND));
-        log.info("Current user login: ntId: {} - name: {}", customerEntity.getNtId(), customerEntity.getName());
         return customerEntity;
     }
 }

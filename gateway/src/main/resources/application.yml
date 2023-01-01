@@ -58,7 +58,7 @@ spring:
           marketx-gateway-client:
             provider: keycloak-provider
             client-id: marketx-client
-            client-secret: kyp8Sf963Lf8y53VVz9BHtWmaiVWtqHA
+            client-secret: toO3S0uhH86hjM6wTKcIQ5h9gOfnSL9A
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:9090/login/oauth2/code/keycloak-marketx
             scope: openid

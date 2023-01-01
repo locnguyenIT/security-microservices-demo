@@ -1,6 +1,9 @@
 package com.ntloc.customer;
 
 
+import com.ntloc.client.orders.OrdersClient;
+import com.ntloc.client.orders.OrdersRequest;
+import com.ntloc.client.orders.OrdersResponse;
 import com.ntloc.customer.util.SecurityUtil;
 import com.ntloc.exception.NotFoundException;
 import lombok.AllArgsConstructor;
@@ -18,30 +21,23 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
-    private final OrdersClient ordersClient;
-
 
     public List<CustomerDTO> getAllCustomer() {
-        CustomerEntity currentCustomer = SecurityUtil.getCurrentCustomerLogin(customerRepository);
+        CustomerEntity currentCustomer = SecurityUtil.getCurrentCustomer(customerRepository);
         return customerMapper.toListDTO(customerRepository.findAll());
 
     }
 
     public CustomerDTO getCustomer(Long id) {
-        CustomerEntity currentCustomer = SecurityUtil.getCurrentCustomerLogin(customerRepository);
+        CustomerEntity currentCustomer = SecurityUtil.getCurrentCustomer(customerRepository);
+        log.info("Current customer: ntId: {} - name: {}", currentCustomer.getNtId(), currentCustomer.getName());
         CustomerDTO customerDTO = customerRepository.findById(id).map(customerMapper::toDTO).orElseThrow(() ->
                 new NotFoundException(CUSTOMER_NOT_FOUND));
         return customerDTO;
     }
 
-    public OrdersResponse orders(OrdersRequest ordersRequest) {
-        CustomerEntity customer = customerRepository.findById(ordersRequest.getCustomerId()).orElseThrow(() ->
-                new IllegalStateException(CUSTOMER_NOT_FOUND));
-
-        OrdersResponse order = ordersClient.order(ordersRequest);
-        //System.out.println(order+" abc");
-        return order;
+    public CustomerDTO getCurrentCustomer() {
+        CustomerEntity currentCustomer = SecurityUtil.getCurrentCustomer(customerRepository);
+        return customerMapper.toDTO(currentCustomer);
     }
-
-
 }

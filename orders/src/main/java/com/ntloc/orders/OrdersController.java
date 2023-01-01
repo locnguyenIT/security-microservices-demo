@@ -1,5 +1,6 @@
 package com.ntloc.orders;
 
+import com.ntloc.client.orders.OrdersRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,7 @@ public class OrdersController {
 
     @PostMapping
     public OrdersDTO order(@RequestBody OrdersRequest ordersRequest) {
-
-        log.info("Customer orders {}", ordersRequest);
+        log.info("Customer orders: {}", ordersRequest);
         return ordersService.order(ordersRequest);
     }
 

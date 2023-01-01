@@ -7,6 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 //basePackages is scan package to fetch all Feign Client from that package
 @EnableFeignClients(
+        basePackages = "com.ntloc.client"
 )
 @EnableEurekaClient
 //ScanBasePackages is scan package to fetch all class from that package
