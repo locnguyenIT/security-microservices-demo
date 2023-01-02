@@ -1,9 +1,6 @@
 package com.ntloc.customer;
 
 
-import com.ntloc.client.orders.OrdersClient;
-import com.ntloc.client.orders.OrdersRequest;
-import com.ntloc.client.orders.OrdersResponse;
 import com.ntloc.customer.util.SecurityUtil;
 import com.ntloc.exception.NotFoundException;
 import lombok.AllArgsConstructor;
