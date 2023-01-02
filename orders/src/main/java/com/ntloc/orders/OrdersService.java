@@ -41,17 +41,21 @@ public class OrdersService {
     public OrdersDTO order(OrdersRequest ordersRequest) {
         CustomerResponse currentCustomer = customerClient.getCurrentCustomer();
         log.info("Current customer orders: ntId: {} - name: {}", currentCustomer.getNtId(), currentCustomer.getName());
+        log.info("Get product and check quantity.");
         ProductResponse product = productClient.getProduct(ordersRequest.getProductId());
         if (ordersRequest.getQuantity() > product.getQuantity()) {
             throw new BadRequestException(String.format("Current quality of '%s' is '%d'. Not enough product quantity you ordered. Orders failed.", product.getName(), product.getQuantity()));
         }
+        log.info("Perform orders process.");
         //Todo: Handle orders process
         OrdersEntity orders = ordersRepository.save(OrdersEntity.builder()
                 .customerId(currentCustomer.getId())
                 .productId(ordersRequest.getProductId())
                 .quality(ordersRequest.getQuantity())
                 .createAt(LocalDateTime.now()).build());
+        log.info("Orders success. Start update quantity product");
         productClient.updateQuantity(ordersRequest);
+        log.info("Update product quantity finished.");
         return ordersMapper.toDTO(orders);
 
     }
