@@ -7,24 +7,24 @@
 
     <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>${LOGSTASH_HOST}</destination>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-<!--            <providers>-->
-<!--                <mdc />-->
-<!--                <context />-->
-<!--                <logLevel />-->
-<!--                <loggerName />-->
-<!--                <pattern>-->
-<!--                    <pattern>-->
-<!--                        {-->
-<!--                        "appName": "orders-service"-->
-<!--                        }-->
-<!--                    </pattern>-->
-<!--                </pattern>-->
-<!--                <threadName />-->
-<!--                <message />-->
-<!--                <logstashMarkers />-->
-<!--                <stackTrace />-->
-<!--            </providers>-->
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <mdc />
+                <context />
+                <logLevel />
+                <loggerName />
+                <pattern>
+                    <pattern>
+                        {
+                        "appName": "dsa-service"
+                        }
+                    </pattern>
+                </pattern>
+                <threadName />
+                <message />
+                <logstashMarkers />
+                <stackTrace />
+            </providers>
         </encoder>
     </appender>
 

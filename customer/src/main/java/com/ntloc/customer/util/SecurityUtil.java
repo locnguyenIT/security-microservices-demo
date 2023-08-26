@@ -16,7 +16,14 @@ public class SecurityUtil {
     public static CustomerEntity getCurrentCustomer(CustomerRepository customerRepository) {
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         String username = jwtAuthenticationToken.getTokenAttributes().get(PREFERRED_USERNAME).toString();
-        CustomerEntity customerEntity = customerRepository.findByNtIdIgnoreCase(username).orElseThrow(() ->
+        String name = jwtAuthenticationToken.getTokenAttributes().get("name").toString();
+        String email = jwtAuthenticationToken.getTokenAttributes().get("email").toString();
+        CustomerEntity newCustomer = customerRepository.save(CustomerEntity.builder()
+                .ntId(username)
+                .name(name)
+                .email(email).
+                build());
+        CustomerEntity customerEntity = customerRepository.findByNtIdIgnoreCase(newCustomer.getNtId()).orElseThrow(() ->
                 new NotFoundException(CUSTOMER_NOT_FOUND));
         return customerEntity;
     }

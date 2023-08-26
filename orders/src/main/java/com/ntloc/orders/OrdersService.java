@@ -10,11 +10,15 @@ import com.ntloc.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.ntloc.orders.OrdersConstant.ORDERS_NOT_FOUND;
+import static com.ntloc.orders.OrdersState.APPROVED;
+import static com.ntloc.orders.OrdersState.CREATED;
+import static com.ntloc.orders.RejectionReason.INSUFFICIENT_QUANTITY;
 
 @AllArgsConstructor
 @Slf4j
@@ -37,21 +41,22 @@ public class OrdersService {
         return ordersMapper.toDTO(orders);
     }
 
-
+    @Transactional
     public OrdersDTO order(OrdersRequest ordersRequest) {
-        CustomerResponse currentCustomer = customerClient.getCurrentCustomer();
-        log.info("Current customer orders: ntId: {} - name: {}", currentCustomer.getNtId(), currentCustomer.getName());
-        ProductResponse product = productClient.getProduct(ordersRequest.getProductId());
-        if (ordersRequest.getQuantity() > product.getQuantity()) {
-            throw new BadRequestException(String.format("Current quality of '%s' is '%d'. Not enough product quantity you ordered. Orders failed.", product.getName(), product.getQuantity()));
-        }
-        //Todo: Handle orders process
+        //CustomerResponse currentCustomer = customerClient.getCurrentCustomer();
+        log.info("Current customer orders: ntId: {} - name: {}", 1,"user");
         OrdersEntity orders = ordersRepository.save(OrdersEntity.builder()
-                .customerId(currentCustomer.getId())
+                .customerId(1L)
                 .productId(ordersRequest.getProductId())
-                .quality(ordersRequest.getQuantity())
-                .createAt(LocalDateTime.now()).build());
-        productClient.updateQuantity(ordersRequest);
+                .quantity(ordersRequest.getQuantity())
+                .createAt(LocalDateTime.now())
+                .state(CREATED).build());
+        if (ordersRequest.getQuantity() < 5) {
+            orders.approve();
+            //TODO: Update quantity of product
+        } else {
+            orders.reject(INSUFFICIENT_QUANTITY);
+        }
         return ordersMapper.toDTO(orders);
 
     }
